@@ -59,7 +59,7 @@
                     <div class="group">
                         <div class="relative overflow-hidden rounded-lg mb-4 p-8">
                             <!-- Shows an image -->
-                            <img src="<?php echo $prod['image'] ?>" alt="<?php echo $prod['image'] ?? '' ?>>" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-500">
+                            <img src="<?php echo $prod['image'] ?>" alt="<?php echo $prod['image'] ?? '' ?>>" class="w-full h-80 object-contain transform group-hover:scale-105 transition duration-500">
                             <!-- Overlays a semi-transparent background on hover. -->
                             <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition"></div>
                             
