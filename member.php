@@ -1,5 +1,5 @@
 <?php
-    require './components/header.php';
+    include './components/header.php';
 
     require "./config/config.php";
 
