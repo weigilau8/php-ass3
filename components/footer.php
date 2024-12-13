@@ -21,7 +21,9 @@
                             <ul class="space-y-2">
                                 <li><a href="/about.php" class="text-gray-400 hover:text-white transition">About Us</a></li>
                                 <li><a href="/products.php" class="text-gray-400 hover:text-white transition">Collection</a></li>
-                                <li><a href="/contact.php" class="text-gray-400 hover:text-white transition">Contact</a></li>                        
+                                <li><a href="/contact.php" class="text-gray-400 hover:text-white transition">Contact</a></li>   
+                                <li><a href="/login.php" class="text-gray-400 hover:text-white transition">Login</a></li>                        
+                                <li><a href="/register.php" class="text-gray-400 hover:text-white transition">Register</a></li>   
                             </ul>
                         </nav>
                         <address>
