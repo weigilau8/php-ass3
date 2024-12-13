@@ -8,26 +8,35 @@
             $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE;
             $pdo = new PDO($dsn, DB_USERNAME, DB_PASSWORD);
 
-            $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (:first_name, :last_name, :email, :password)"); 
-
             // Getting the form data
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Hashing the password for security
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-            $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
-            $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+            // Query if email has been registered
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-            $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
+            $stmt->execute();
 
-            if ($stmt->execute()) {
-                $message = "New account created successfully!";
+            if ($stmt->rowCount() > 0) {
+                $message = "Email already exists. Please try another email address.";
             } else {
-                $message = "Error: Unable to create account.";
+                // Hashing the password for  protection
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+                // Insert the new user
+                $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (:first_name, :last_name, :email, :password)");
+                $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+                $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
+    
+                if ($stmt->execute()) {
+                    $message = "New account created successfully!";
+                } else {
+                    $message = "Error: Unable to create account.";
+                }
             }
         
         } catch (PDOException $e) {
