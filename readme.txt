@@ -9,3 +9,4 @@ List of images depending on your website content (inside a folder named images f
 header.php (inside a folder named templates)
 footer.php (inside the same folder templates)
 dbconfig.php (inside the same folder config)
+sql data (inside config folder)
