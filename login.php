@@ -26,6 +26,7 @@
         if($user === false){
             //Could not find that email!
             $message = 'Incorrect email / password combination!';
+            $colorBox = "red-500";
         } else{
             //Email account found. Check to see if the given password match
             //password hash that we stored in our users table.
@@ -43,13 +44,18 @@
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['logged_in'] = time();
                 
-                //Redirect to our protected page, which we called home.php
-                header('Location: index.php');
-                exit;
+                echo "<script>
+                        setTimeout(function() {
+                            window.location.href = './index.php';
+                        }, 2000); // Redirect after 2 seconds
+                    </script>";
+                $message = "User and Password are registered will be redirecting to Homepage";
+                $colorBox = "indigo-600";
                 
             } else{
                 //$validPassword was FALSE. Passwords do not match.
                 $message = 'Incorrect username / password combination!';
+                $colorBox = "red-500";
             }
         }
     }
@@ -73,7 +79,7 @@
                 <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
                     <!-- Display Message -->
                     <?php if (isset($message)): ?>
-                        <div class="p-4 text-white bg-red-500 rounded mb-4">
+                        <div class="p-4 text-white bg-<?php echo $colorBox; ?> rounded mb-4">
                             <?php echo htmlspecialchars($message); ?>
                         </div>
                     <?php endif; ?>
@@ -91,7 +97,7 @@
                         <button type="submit" name="login" class="px-8 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition group w-full text-center">Sign in</button>
                         
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Don’t have an account yet? <a href="./signup.php" class="font-medium text-green-600 hover:underline dark:text-green-500">Sign up</a>
+                            Don’t have an account yet? <a href="./register.php" class="font-medium text-green-600 hover:underline dark:text-green-500">Sign up</a>
                         </p>
                     </form>
                 </div>

@@ -21,6 +21,7 @@
 
             if ($stmt->rowCount() > 0) {
                 $message = "Email already exists. Please try another email address.";
+                $colorBox = "red-500";
             } else {
                 // Hashing the password for  protection
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -33,7 +34,13 @@
                 $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
     
                 if ($stmt->execute()) {
-                    $message = "New account created successfully!";
+                    echo "<script>
+                        setTimeout(function() {
+                            window.location.href = './login.php';
+                        }, 2000); // Redirect after 2 seconds
+                    </script>";
+                    $message = "New account created successfully! Redirecting to login...";
+                    $colorBox = "indigo-600";
                 } else {
                     $message = "Error: Unable to create account.";
                 }
@@ -42,6 +49,7 @@
         } catch (PDOException $e) {
             // Handle database errors
             $message = "Database error: " . $e->getMessage();
+            $colorBox = "red-500";
         }
     }
 
@@ -65,7 +73,7 @@
                 <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
                     <!-- Display Message -->
                     <?php if (isset($message)): ?>
-                        <div class="p-4 text-white bg-gray-800 rounded mb-4">
+                        <div class="p-4 text-white bg-<?php echo $colorBox; ?> rounded mb-4">
                             <?php echo htmlspecialchars($message); ?>
                         </div>
                     <?php endif; ?>
@@ -93,7 +101,7 @@
                         <button type="submit" name="register" class="px-8 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition group w-full text-center">Register</button>
                         
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Do you have an account? <a href="./login.php" class="font-medium text-green-600 hover:underline dark:text-green-500">Login</a>
+                            Do you have an account? <a href="login.php" class="font-medium text-green-600 hover:underline dark:text-green-500">Login</a>
                         </p>
                     </form>
                 </div>
